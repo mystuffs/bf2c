@@ -96,3 +96,9 @@ class BFConverter:
                 result += f'delete[] {self.pointer_name};'
         result += self.indent_style + 'return 0;\n}'
         return result
+
+    def convert2file(self, dst: str, bf: str):
+        if dst.count('.') > 0:
+            dst = '.'.join(dst.split('.')[:-1])
+        with open(f'{dst}.{self.language}', 'w') as f:
+            f.write(self.convert(bf))

@@ -7,14 +7,10 @@ BF = ',[[>+>+<<-]>>[<<+>>-]<<-]>.<'
 
 class TestBF2C(TestCase):
     def test_convert_to_c(self):
-        b = BFConverter()
-        with open('test.c', 'w') as f:
-            f.write(b.convert(BF))
+        BFConverter().convert2file('test', BF)
 
     def test_convert_to_cpp(self):
-        b = BFConverter(language='cpp')
-        with open('test.cpp', 'w') as f:
-            f.write(b.convert(BF))
+        BFConverter(language='cpp').convert2file('test', BF)
 
     def test_language(self):
         b = BFConverter()
