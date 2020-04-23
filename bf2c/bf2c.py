@@ -97,8 +97,18 @@ class BFConverter:
         result += self.indent_style + 'return 0;\n}'
         return result
 
-    def convert2file(self, dst: str, bf: str):
+    def __source_fn(self, dst: str) -> str:
         if dst.count('.') > 0:
             dst = '.'.join(dst.split('.')[:-1])
-        with open(f'{dst}.{self.language}', 'w') as f:
+        return f'{dst}.{self.language}'
+
+    def convert2file(self, dst: str, bf: str):
+        with open(self.__source_fn(dst), 'w') as f:
             f.write(self.convert(bf))
+
+    def compile(self, dst: str, bf: str):
+        source_fn = self.__source_fn(dst)
+        with open(source_fn, 'w') as f:
+            f.write(self.convert(bf))
+        from subprocess import call
+        call(['gcc' if self.is_c else 'g++', source_fn, '-o', '.'.join(source_fn.split('.')[:-1])])
