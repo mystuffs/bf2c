@@ -30,7 +30,7 @@ class BFConverter:
 
     @language.setter
     def language(self, language: str):
-        if language != 'cpp' or language != 'c':
+        if language != 'cpp' and language != 'c':
             raise ValueError('Not supported language for BFConverter. Use either \'c\' or \'cpp\'.')
 
         self.__lang = language
